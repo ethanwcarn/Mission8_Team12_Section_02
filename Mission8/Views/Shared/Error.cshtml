@@ -1,11 +1,22 @@
-﻿@model ErrorViewModel
+@*
+    Shared/Error.cshtml – Error Page View
+    Displayed when an unhandled exception occurs in the application.
+    Shows a generic error message and, if available, the Request ID
+    for debugging. Also includes guidance on enabling the Development
+    environment for more detailed error information.
+*@
+
+@model ErrorViewModel
+
 @{
     ViewData["Title"] = "Error";
 }
 
+@* Error heading and generic message *@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
+@* Display the Request ID if one exists, so developers can trace the error in logs *@
 @if (Model.ShowRequestId)
 {
     <p>
@@ -13,6 +24,7 @@
     </p>
 }
 
+@* Guidance section explaining how to get more detailed error information *@
 <h3>Development Mode</h3>
 <p>
     Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.

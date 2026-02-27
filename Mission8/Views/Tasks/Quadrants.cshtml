@@ -1,9 +1,17 @@
 @*
-    AUSTIN - Assignment #3: Views – Quadrants View
-    Purpose: Display tasks laid out in Quadrants (I: Important/Urgent, II: Important/Not Urgent,
-             III: Not Important/Urgent, IV: Not Important/Not Urgent). Only show non-completed tasks.
-             Include Update and Delete functionality for each task.
+    Tasks/Quadrants.cshtml – Covey Time Management Matrix View
+    Displays all incomplete tasks organized into four quadrants based on
+    Stephen Covey's priority system:
+      Quadrant I   – Urgent & Important       (red header)
+      Quadrant II  – Not Urgent & Important   (blue header)
+      Quadrant III – Urgent & Not Important    (yellow/warning header)
+      Quadrant IV  – Not Urgent & Not Important (gray header)
+
+    Each quadrant renders a _TaskTable partial view that shows the tasks
+    belonging to that quadrant with Edit, Delete, and Done buttons.
 *@
+
+@* Declare the model type: a collection of Task objects passed from TasksController.Quadrants *@
 @model IEnumerable<Mission8.Models.Task>
 
 @{
@@ -13,15 +21,20 @@
 <div class="container">
     <h1 class="text-center mb-4">Task Quadrants</h1>
 
+    @* 2x2 grid layout – each quadrant occupies half the row (col-md-6) *@
     <div class="row g-4">
+        @* Loop through quadrants 1 to 4 and render a Bootstrap card for each *@
         @for (int i = 1; i <= 4; i++)
         {
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
+                    @* Card header with color-coded background based on quadrant urgency/importance *@
                     <div class="card-header @GetQuadrantColor(i) text-white">
                         <h4 class="mb-0">@GetQuadrantTitle(i)</h4>
                     </div>
                     <div class="card-body">
+                        @* Render the shared _TaskTable partial, filtering tasks to only
+                           those matching the current quadrant and not yet completed *@
                         @await Html.PartialAsync("_TaskTable", Model.Where(x => x.Quadrant == i && !x.Completed))
                     </div>
                 </div>
@@ -30,7 +43,9 @@
     </div>
 </div>
 
+@* Helper functions defined in the Razor view to map quadrant numbers to display text and colors *@
 @functions {
+    // Returns the descriptive title for each quadrant number (1–4)
     string GetQuadrantTitle(int q) => q switch {
         1 => "I: Urgent & Important",
         2 => "II: Not Urgent & Important",
@@ -39,6 +54,8 @@
         _ => ""
     };
 
+    // Returns a Bootstrap background color class for each quadrant:
+    //   1 = red (danger), 2 = blue (primary), 3 = yellow (warning), 4 = gray (secondary)
     string GetQuadrantColor(int q) => q switch {
         1 => "bg-danger",
         2 => "bg-primary",

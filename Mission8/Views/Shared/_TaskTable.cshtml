@@ -1,7 +1,17 @@
+@*
+    Shared/_TaskTable.cshtml – Task Table Partial View
+    A reusable partial view that renders a table of tasks. This partial is called
+    once for each quadrant on the Quadrants page. It receives a filtered collection
+    of Task objects and displays each one with its name, due date, category,
+    and action buttons (Edit, Delete, Done).
+*@
+
+@* Model is the filtered subset of tasks for one specific quadrant *@
 @model IEnumerable<Mission8.Models.Task>
 
 <div class="table-responsive">
     <table class="table table-hover table-sm">
+        @* Table header row with column labels *@
         <thead class="table-light">
         <tr>
             <th>Task</th>
@@ -11,23 +21,32 @@
         </tr>
         </thead>
         <tbody>
+        @* Loop through each task and render a table row *@
         @foreach (var task in Model)
         {
             <tr>
+                @* Task name *@
                 <td>@task.TaskName</td>
+
+                @* Due date formatted as MM/dd/yyyy; blank if no date is set *@
                 <td>@task.DueDate?.ToString("MM/dd/yyyy")</td>
+
+                @* Category name loaded via the navigation property *@
                 <td>@task.Category?.CategoryName</td>
+
+                @* Action buttons grouped together *@
                 <td>
                     <div class="btn-group" role="group">
-                        @* Edit Link *@
+                        @* Edit button – navigates to the AddEdit form with this task's ID *@
                         <a asp-controller="Tasks" asp-action="AddEdit" asp-route-id="@task.TaskId"
                            class="btn btn-outline-primary btn-sm">Edit</a>
 
-                        @* Delete Link *@
+                        @* Delete button – navigates to DeleteTask action to remove this task *@
                         <a asp-controller="Tasks" asp-action="DeleteTask" asp-route-id="@task.TaskId"
                            class="btn btn-outline-danger btn-sm">Delete</a>
 
-                        @* Complete Action (POST) *@
+                        @* Done button – POST form that marks this task as completed.
+                           Uses a form (not a link) because this action modifies data. *@
                         <form asp-controller="Tasks" asp-action="MarkComplete" asp-route-id="@task.TaskId" method="post" class="d-inline">
                             <button type="submit" class="btn btn-outline-success btn-sm">Done</button>
                         </form>

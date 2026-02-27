@@ -1,27 +1,31 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+@*
+    Home/Index.cshtml – Landing Page
+    The first page users see when visiting the site.
+    Displays a welcome message explaining the Covey Time Management Matrix
+    and provides two large navigation buttons: "View Tasks" and "Add Task".
+*@
 
 @{
     ViewData["Title"] = "Task Manager";
 }
 
+@* Main content container with top margin for spacing *@
 <div class="container mt-5">
 
-    <!-- Welcome Section -->
+    @* Welcome Section – Centered heading and description *@
     <div class="row mb-5">
         <div class="col text-center">
             <h1 class="display-4">Welcome to Your Time Management Matrix</h1>
             <p class="lead">
-                Organize your tasks using Stephen Covey’s Quadrant system.
+                Organize your tasks using Stephen Covey's Quadrant system.
             </p>
         </div>
     </div>
 
-    <!-- Button Section -->
+    @* Button Section – Two large buttons side by side for primary navigation *@
     <div class="row justify-content-center text-center">
 
-        <!-- View Tasks Button -->
+        @* "View Tasks" button – navigates to the Quadrants page (TasksController.Quadrants) *@
         <div class="col-md-5 mb-3">
             <div class="d-grid">
                 <a asp-controller="Tasks"
@@ -32,7 +36,7 @@
             </div>
         </div>
 
-        <!-- Add Task Button -->
+        @* "Add Task" button – navigates to the Add/Edit form (TasksController.AddEdit with no ID) *@
         <div class="col-md-5 mb-3">
             <div class="d-grid">
                 <a asp-controller="Tasks"

@@ -1,2 +1,15 @@
-﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+@*
+    Shared/_ValidationScriptsPartial.cshtml – Client-Side Validation Scripts
+    Loads jQuery Validation and the unobtrusive validation adapter so that
+    form validation (e.g., required fields, range checks) runs in the browser
+    before the form is submitted to the server. This provides instant feedback
+    to users without a full page reload.
+    Views that contain forms can include this partial in their Scripts section.
+*@
+
+@* jQuery Validation plugin – validates form fields based on HTML attributes *@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+@* Unobtrusive validation – bridges ASP.NET Core data annotations (like [Required])
+   to jQuery Validation rules automatically using data-val-* HTML attributes *@
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

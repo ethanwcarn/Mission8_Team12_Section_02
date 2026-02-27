@@ -1,3 +1,16 @@
-﻿@using Mission8
+@*
+    _ViewImports.cshtml – Global View Imports
+    This file makes namespaces and Tag Helpers available to all Razor views
+    so they don't need to be imported individually in each .cshtml file.
+*@
+
+@* Import the main application namespace so views can reference app-level classes *@
+@using Mission8
+
+@* Import the Models namespace so views can use Task, Category, etc. without full qualification *@
 @using Mission8.Models
+
+@* Enable ASP.NET Core Tag Helpers (asp-for, asp-action, asp-controller, etc.)
+   throughout all views. Tag Helpers provide server-side HTML generation
+   that works naturally with HTML syntax. *@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

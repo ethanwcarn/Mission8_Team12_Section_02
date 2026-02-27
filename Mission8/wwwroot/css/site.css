@@ -1,26 +1,42 @@
+/* =============================================================================
+   site.css – Custom Site Styles
+   Overrides and supplements Bootstrap's default styles for this application.
+   These styles apply globally to every page via the _Layout.cshtml file.
+   ============================================================================= */
+
+/* Base font size for mobile devices (14px) */
 html {
   font-size: 14px;
 }
 
+/* On screens 768px and wider (tablets/desktops), increase the base font size to 16px */
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
 }
 
+/* Custom focus ring for interactive elements (buttons, links, form controls).
+   Replaces Bootstrap's default focus style with a white inner ring and blue outer ring
+   for better visibility and accessibility. */
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+/* Ensure the HTML element takes at least the full viewport height,
+   so the footer stays at the bottom even on short pages */
 html {
   position: relative;
   min-height: 100%;
 }
 
+/* Add bottom margin to the body to prevent page content from overlapping the footer */
 body {
   margin-bottom: 60px;
 }
 
+/* Floating label placeholder text styles – aligns placeholder text
+   to the right by default, then to the left when the input is focused */
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;

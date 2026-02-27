@@ -1,13 +1,17 @@
 @*
-    LIV - Assignment #2: Views -- Create Tasks View & Shared Layout
-    Purpose: Add/Edit Task view. Form for Task (required), Due Date, Quadrant (required),
-             Category (dropdown: Home, School, Work, Church), Completed (True/False).
-             Consistent look and feel across the site.
-*@
-@{
-    ViewData["Title"] = "Add/Edit Task";
-}
+    Tasks/AddEdit.cshtml – Add / Edit Task Form
+    A single form that handles both creating new tasks and editing existing ones.
+    When TaskId is 0, the form creates a new task; otherwise it updates the existing one.
 
+    Form Fields:
+      - Task Name (required text input)
+      - Due Date (optional date picker)
+      - Quadrant (required dropdown: 1–4)
+      - Category (dropdown populated from database via ViewBag)
+      - Completed (checkbox)
+*@
+
+@* Declare the model type: a single Task object *@
 @model Mission8.Models.Task
 
 @{
@@ -20,12 +24,14 @@
 
             <h2 class="mb-4 text-center">Add / Edit Task</h2>
 
+            @* The form posts back to TasksController.AddEdit (POST) *@
             <form method="post">
 
-                @* Hidden ID for editing *@
+                @* Hidden field preserves the TaskId during form submission.
+                   TaskId = 0 means new task; non-zero means edit existing. *@
                 <input type="hidden" asp-for="TaskId" />
 
-                <!-- Task (Required) -->
+                @* Task Name – Required text field with validation message *@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label asp-for="TaskName" class="form-label"></label>
@@ -34,7 +40,7 @@
                     </div>
                 </div>
 
-                <!-- Due Date -->
+                @* Due Date – Optional date picker input *@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label asp-for="DueDate" class="form-label"></label>
@@ -42,7 +48,7 @@
                     </div>
                 </div>
 
-                <!-- Quadrant (Required) -->
+                @* Quadrant – Required dropdown with the four Covey quadrant options *@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label asp-for="Quadrant" class="form-label"></label>
@@ -57,7 +63,8 @@
                     </div>
                 </div>
 
-                <!-- Category (Dropdown from DB) -->
+                @* Category – Dropdown dynamically populated from the database.
+                   ViewBag.Categories is set by TasksController.PopulateCategories(). *@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label asp-for="CategoryId" class="form-label"></label>
@@ -73,7 +80,7 @@
                     </div>
                 </div>
 
-                <!-- Completed -->
+                @* Completed – Checkbox to mark the task as done *@
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="form-check">
@@ -83,7 +90,7 @@
                     </div>
                 </div>
 
-                <!-- Buttons -->
+                @* Form action buttons – Save submits the form, Cancel navigates back to Quadrants *@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-primary me-2">
